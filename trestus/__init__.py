@@ -45,20 +45,17 @@ def main():
     panels = {}
     systems = {}
 
-    degraded = None
-    major = None
-    for status_type in status_types:
-        if status_type.name.endswith('major outage'):
-            major = status_type
-        elif status_type.name.endswith('degraded performance'):
-            degraded = status_type
-
     for card_list in lists:
         for card in card_list.list_cards():
-            if major.id in card.label_ids:
-                card.severity = major.name.lstrip('status:')
-            elif degraded.id in card.label_ids:
-                card.severity = degraded.name.lstrip('status:')
+            severity = ''
+            for label in card.labels:
+                if not label.name.startswith('status:'):
+                    continue
+
+                severity = label.name.lstrip('status:').lstrip()
+                if label.color == 'red':
+                    break
+            card.severity = severity
 
 
             card_services = [l.name for l in card.labels if l.id in service_ids]
@@ -69,10 +66,10 @@ def main():
                     panels[card.severity] = []
                 panels[card.severity] += card_services
 
-            for service in card_services:
-                if service not in systems:
-                    systems[service] = {'status': card_list.name,
-                                        'severity': card.severity}
+                for service in card_services:
+                    if service not in systems:
+                        systems[service] = {'status': card_list.name,
+                                            'severity': card.severity}
 
             card.html_desc = markdown(card.desc)
 
@@ -83,12 +80,10 @@ def main():
             card.parsed_comments = comments
 
             incidents.append(card)
+
     for service in services:
         if service.name not in systems:
             systems[service.name] = {'status': 'Operational', 'severity': ''}
-
-    print(systems)
-    print(panels)
 
 
     env = Environment(loader=FileSystemLoader(
@@ -98,6 +93,7 @@ def main():
         f.write(template.render(incidents=incidents, panels=panels,
                                 systems=systems))
 
+    print('Status page written to {}'.format(args.output_path))
     return 0
 
 
