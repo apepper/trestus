@@ -41,13 +41,14 @@ def main():
     service_ids = [s.id for s in services]
     status_types = [l for l in labels if l not in services]
     lists = board.open_lists()
+
     incidents = []
     panels = {}
     systems = {}
 
     for card_list in lists:
         for card in card_list.list_cards():
-            severity = ''
+            severity = None
             for label in card.labels:
                 if not label.name.startswith('status:'):
                     continue
@@ -59,6 +60,9 @@ def main():
 
 
             card_services = [l.name for l in card.labels if l.id in service_ids]
+            if not card_services or not card.severity:
+                continue
+
             if card_list.name.lower() == 'fixed':
                 card.closed = True
             else:
