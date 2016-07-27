@@ -50,7 +50,7 @@
 				{% if incidents %}
 					{% for incident in incidents %}
 					<div class="incident">
-						<span class="date">{{ incident.create_date }} UTC</span>
+						<span class="date">{{ incident.create_date.strftime('%Y-%m-%d %H:%M:%S') }} UTC</span>
 
 						{% if incident.closed %}
 							<span class="label operational float-right">resolved</span>
@@ -65,7 +65,7 @@
 						<span class="title">{{ incident.name }}</span>
 						<p>{{ incident.html_desc }}</p>
 						{% for comment in incident.parsed_comments %}
-							<p><em>Update {{ comment.date }}</em><br/>
+							<p><em>Update {{ comment.date.strftime('%Y-%m-%d %H:%M:%S') }}</em><br/>
 							{{ comment.html_desc }}
 							</p>
 						{% endfor %}
