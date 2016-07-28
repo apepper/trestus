@@ -65,7 +65,7 @@
 						<span class="title">{{ incident.name }}</span>
 						<p>{{ incident.html_desc }}</p>
 						{% for comment in incident.parsed_comments %}
-							<p><em>Update {{ comment.date }} by {{ comment.memberCreator.initials }}</em><br/>
+							<p><em>Update {{ comment.parsed_date.strftime('%Y-%m-%d %H:%M:%S') }} UTC by {{ comment.memberCreator.initials }}</em><br/>
 							{{ comment.html_desc }}
 							</p>
 						{% endfor %}
