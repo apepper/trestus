@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from datetime import datetime
 from os import environ, path
 from sys import exit
+from yaml import load as load_yaml
 
 from jinja2 import Environment, FileSystemLoader
 from trello import TrelloClient
@@ -28,6 +29,10 @@ def main():
                         help='Trello board ID')
     parser.add_argument('-T', '--custom-template', dest='template',
                         help='Custom jinja2 template to use instead of default')
+    parser.add_argument('-d', '--template-data', dest='template_data',
+                        help='If using --custom-template, you can provide a '
+                             'YAML file to load in data that would be '
+                             'available in the template the template')
     parser.add_argument('output_path', help='Path to output rendered HTML to')
     args = parser.parse_args()
 
@@ -106,11 +111,16 @@ def main():
         template_dir = path.join(path.dirname(__file__), 'templates')
         template_name = 'trestus_template.html'
 
+    if args.template_data:
+        template_data = load_yaml(open(args.template_data))
+    else:
+        template_data = {}
+
     env = Environment(loader=FileSystemLoader(template_dir))
     template = env.get_template(template_name)
     with open(args.output_path, 'w+') as f:
         f.write(template.render(incidents=incidents, panels=panels,
-                                systems=systems))
+                                systems=systems, **template_data))
 
     print('Status page written to {}'.format(args.output_path))
     return 0
