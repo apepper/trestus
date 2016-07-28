@@ -25,6 +25,8 @@ def main():
     parser.add_argument('-b', '--board-id', dest='board',
                         default=environ.get('TRELLO_BOARD_ID'),
                         help='Trello board ID')
+    parser.add_argument('-T', '--custom-template', dest='template',
+                        help='Custom jinja2 template to use instead of default')
     parser.add_argument('output_path', help='Path to output rendered HTML to')
     args = parser.parse_args()
 
