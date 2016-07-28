@@ -47,7 +47,9 @@ def main():
     systems = {}
 
     for card_list in lists:
-        for card in card_list.list_cards():
+        cards = card_list.list_cards()
+        cards.sort(key=lambda c: c.create_date, reverse=True)
+        for card in cards:
             severity = None
             for label in card.labels:
                 if not label.name.startswith('status:'):
