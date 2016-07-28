@@ -104,20 +104,20 @@ def main():
         if label.name not in systems:
             systems[label.name] = {'status': 'Operational', 'severity': ''}
 
-    if args.template:
-        template_dir = path.dirname(args.template)
-        template_name = path.basename(args.template)
-    else:
-        template_dir = path.join(path.dirname(__file__), 'templates')
-        template_name = 'trestus_template.html'
-
     if args.template_data:
         template_data = load_yaml(open(args.template_data))
     else:
         template_data = {}
 
-    env = Environment(loader=FileSystemLoader(template_dir))
-    template = env.get_template(template_name)
+
+    env = Environment(loader=FileSystemLoader(
+        path.join(path.dirname(__file__), 'templates')))
+    if args.template:
+        with open(args.template) as f:
+            template = env.from_string(f.read())
+    else:
+        template = env.get_template('trestus_template.html')
+
     with open(args.output_path, 'w+') as f:
         f.write(template.render(incidents=incidents, panels=panels,
                                 systems=systems, **template_data))
