@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from datetime import datetime
 from os import environ, path
 from sys import exit
 
@@ -25,6 +26,8 @@ def main():
     parser.add_argument('-b', '--board-id', dest='board',
                         default=environ.get('TRELLO_BOARD_ID'),
                         help='Trello board ID')
+    parser.add_argument('-T', '--custom-template', dest='template',
+                        help='Custom jinja2 template to use instead of default')
     parser.add_argument('output_path', help='Path to output rendered HTML to')
     args = parser.parse_args()
 
@@ -37,9 +40,9 @@ def main():
     markdown = Markdown()
     board = client.get_board(args.board)
     labels = board.get_labels()
-    services = [l for l in labels if not l.name.startswith('status:')]
-    service_ids = [s.id for s in services]
-    status_types = [l for l in labels if l not in services]
+    service_labels = [l for l in labels if not l.name.startswith('status:')]
+    service_ids = [s.id for s in service_labels]
+    status_types = [l for l in labels if l not in service_labels]
     lists = board.open_lists()
 
     incidents = []
@@ -61,8 +64,8 @@ def main():
             card.severity = severity
 
 
-            card_services = [l.name for l in card.labels if l.id in service_ids]
-            if not card_services or not card.severity:
+            card_service_labels = [l.name for l in card.labels if l.id in service_ids]
+            if not card_service_labels or not card.severity:
                 continue
 
             if card_list.name.lower() == 'fixed':
@@ -70,31 +73,41 @@ def main():
             else:
                 if card.severity not in panels:
                     panels[card.severity] = []
-                panels[card.severity] += card_services
+                panels[card.severity] += card_service_labels
 
-                for service in card_services:
+                for service in card_service_labels:
                     if service not in systems:
                         systems[service] = {'status': card_list.name,
                                             'severity': card.severity}
 
             card.html_desc = markdown(card.desc)
 
+            # Working around a bug in latest py-trello which fails to
+            # load/parse comments properly
             comments = card.fetch_comments(force=True)
             for comment in comments:
                 comment['html_desc'] = markdown(comment['data']['text'])
+                comment['parsed_date'] = datetime.strptime(
+                    comment['date'].replace('-', '').replace(':', ''),
+                    '%Y%m%dT%H%M%S.%fZ')
 
             card.parsed_comments = comments
 
             incidents.append(card)
 
-    for service in services:
-        if service.name not in systems:
-            systems[service.name] = {'status': 'Operational', 'severity': ''}
+    for label in service_labels:
+        if label.name not in systems:
+            systems[label.name] = {'status': 'Operational', 'severity': ''}
 
+    if args.template:
+        template_dir = path.dirname(args.template)
+        template_name = path.basename(args.template)
+    else:
+        template_dir = path.join(path.dirname(__file__), 'templates')
+        template_name = 'trestus_template.html'
 
-    env = Environment(loader=FileSystemLoader(
-        path.join(path.dirname(__file__), 'templates')))
-    template = env.get_template('template.html')
+    env = Environment(loader=FileSystemLoader(template_dir))
+    template = env.get_template(template_name)
     with open(args.output_path, 'w+') as f:
         f.write(template.render(incidents=incidents, panels=panels,
                                 systems=systems))
