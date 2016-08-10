@@ -116,7 +116,7 @@ def main():
         with open(args.template) as f:
             template = env.from_string(f.read())
     else:
-        template = env.get_template('trestus_template.html')
+        template = env.get_template('trestus.html')
 
     with open(args.output_path, 'w+') as f:
         f.write(template.render(incidents=incidents, panels=panels,

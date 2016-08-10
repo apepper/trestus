@@ -1,0 +1,6 @@
+include LICENSE
+include statuspage.LICENSE
+include CHANGELOG
+include *.rst
+recursive-include trestus/templates *.html
+recursive-include trestus/templates *.css
