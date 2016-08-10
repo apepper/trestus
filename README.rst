@@ -7,7 +7,7 @@ It was inspired by the excellent `statispage <https://github.com/jayfk/statuspag
 Why?
 ----
 
-Because you should be informing your customers of outages and issues affecting the services they use, and Trello is a rvery fast and easy to use interface for defining outages and investigations through kanban cards/lanes.
+Because you should be informing your customers of outages and issues affecting the services they use, and Trello is a very fast and easy to use interface for defining outages and investigations through kanban cards/lanes.
 
 How does it work?
 -----------------
