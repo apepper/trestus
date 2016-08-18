@@ -1,5 +1,5 @@
 name: trestus
-version: 2
+version: 1.0.0-1
 summary: Static status page generator that uses a Trello board as a data source
 description: Trestus is a static page generator that generates a web service status page from a Trello board displaying outage information for customers to follow along when there are issues.
 confinement: strict
