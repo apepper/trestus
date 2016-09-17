@@ -15,26 +15,42 @@ How does it work?
 Trestus expects the board you tell it about to be setup on Trello with some specific lanes and labels available.
 
 When you add a card to the **Reported** or **Investigating** lane, label it with a severity and at least one service name, the card will show up in any one of those states on the generated status page.
-<IMAGE HERE>
-<IMAGE HERE>
+
+.. image:: images/trello1.png
+
+.. image:: images/status1.png
+    :scale: 50%
 
 
 Your card can include markdown like any other Trello card and that will be converted to HTML on the generated status page, and any comments to the card will show up as updates to the status (and yes, markdown works in these too).
-<IMAGE HERE>
-<IMAGE HERE>
+
+.. image:: images/trello2.png
+
+.. image:: images/status2.png
+    :scale: 50%
 
 
 When the outage has been solved, moving the card to the **Fixed** lane will resolve it (putting the status back into the green but keeping any descriptions/comments as historical backlog underneath).
-<IMAGE HERE>
-<IMAGE HERE>
+
+.. image:: images/trello3.png
+
+.. image:: images/status3.png
+    :scale: 50%
 
 Lanes
 *****
 
+ * **Reported**
+ * **Investigating**
+ * **Fixed**
 
 Labels
 ******
 
+ * **status:degraded performance**
+ * **status:major outage**
+
+Any other label you add (without the 'status:' prefix) will be a service name.
 
 Installation
 ------------
