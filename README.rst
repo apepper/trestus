@@ -12,8 +12,81 @@ Because you should be informing your customers of outages and issues affecting t
 How does it work?
 -----------------
 
+Trestus expects the board you tell it about to be setup on Trello with some specific lanes and labels available.
+
+When you add a card to the **Reported** or **Investigating** lane, label it with a severity and at least one service name, the card will show up in any one of those states on the generated status page.
+<IMAGE HERE>
+<IMAGE HERE>
+
+
+Your card can include markdown like any other Trello card and that will be converted to HTML on the generated status page, and any comments to the card will show up as updates to the status (and yes, markdown works in these too).
+<IMAGE HERE>
+<IMAGE HERE>
+
+
+When the outage has been solved, moving the card to the **Fixed** lane will resolve it (putting the status back into the green but keeping any descriptions/comments as historical backlog underneath).
+<IMAGE HERE>
+<IMAGE HERE>
+
+Lanes
+*****
+
+
+Labels
+******
+
+
 Installation
 ------------
 
+From PyPI with pip:
+
+.. code-block::
+    
+    $ venv ./trestus-env
+    $ ./trestus-env/bin/pip install trestus
+
+
+As a `snap package <https://snapcraft.io/>`_:
+
+.. code-block::
+    
+    $ sudo snap install trestus
+
 Usage
 -----
+
+.. code-block::
+            
+    usage: trestus [-h] [-k KEY] [-s SECRET] [-t TOKEN] [-S TOKEN_SECRET] [-b BOARD] [-T TEMPLATE] [-d TEMPLATE_DATA] output_path
+    
+    Generate a status page from a Trello board
+    
+    positional arguments:
+      output_path           Path to output rendered HTML to
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -k KEY, --key KEY     Trello API key
+      -s SECRET, --secret SECRET
+                            Trello API secret
+      -t TOKEN, --token TOKEN
+                            Trello API auth token
+      -S TOKEN_SECRET, --token-secret TOKEN_SECRET
+                            Trello API auth token secret
+      -b BOARD, --board-id BOARD
+                            Trello board ID
+      -T TEMPLATE, --custom-template TEMPLATE
+                            Custom jinja2 template to use instead of default
+      -d TEMPLATE_DATA, --template-data TEMPLATE_DATA
+                            If using --custom-template, you can provide a YAML file to load in data that would be available in the template the template
+
+
+Example usage
+*************
+
+
+How do I hook it up to Trello?
+------------------------------
+
+
