@@ -10,7 +10,7 @@ setup(
     description='Static status page generator that uses a Trello board as a '
                 'data source',
     long_description=open('README.rst').read(),
-    version='1.0.0',
+    version='1.0.1',
     author='Wes Mason',
     author_email='wesley.mason@canonical.com',
     url='http://canonical-ols.github.io/trestus/',
@@ -34,6 +34,7 @@ setup(
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Intended Audience :: System Administrators",
-        "License :: OSI Approved :: GNU Affero General Public License v3 (GPLv3)",
+        "License :: OSI Approved :: GNU Affero General Public License v3 or"
+            " later (AGPLv3+)",
     ]
 )

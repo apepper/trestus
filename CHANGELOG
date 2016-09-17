@@ -1,0 +1,13 @@
+ChangeLog for trestus
+=====================
+
+1.0.1 (2016-09-17)
+------------------
+
+ - Ensure images are in manifest so they're included on PyPI page.
+
+1.0.0 (2016-09-17)
+------------------
+
+ - Initial release for PyPI.
+ - Readme improvements, screenshots etc. for general release.
