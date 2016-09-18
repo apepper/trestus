@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from datetime import datetime
 from os import environ, path
+from shutil import copy2
 from sys import exit
 from yaml import load as load_yaml
 
@@ -33,6 +34,9 @@ def main():
                         help='If using --custom-template, you can provide a '
                              'YAML file to load in data that would be '
                              'available in the template the template')
+    parser.add_argument('--skip-css', dest='skip_css', action='store_true',
+                        help='Skip copying the default trestus.css to the '
+                             'output dir.')
     parser.add_argument('output_path', help='Path to output rendered HTML to')
     args = parser.parse_args()
 
@@ -121,6 +125,11 @@ def main():
     with open(args.output_path, 'w+') as f:
         f.write(template.render(incidents=incidents, panels=panels,
                                 systems=systems, **template_data))
+
+    if not args.skip_css:
+        css_path = path.join(path.dirname(__file__), 'templates',
+                             'trestus.css')
+        copy2(css_path, path.dirname(args.output_path))
 
     print('Status page written to {}'.format(args.output_path))
     return 0

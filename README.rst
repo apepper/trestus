@@ -111,6 +111,7 @@ Usage
                             Custom jinja2 template to use instead of default
       -d TEMPLATE_DATA, --template-data TEMPLATE_DATA
                             If using --custom-template, you can provide a YAML file to load in data that would be available in the template the template
+      --skip-css            Skip copying the default trestus.css to the output dir.
 
 
 Example usage
