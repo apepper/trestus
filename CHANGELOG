@@ -5,6 +5,7 @@ ChangeLog for trestus
 ------------------
 
  - Add CSS copying from templates by default, with --skip-css flag to disable.
+ - Improved README with more examples and Trello webhooks mention.
 
 1.0.1 (2016-09-17)
 ------------------
