@@ -10,7 +10,7 @@ setup(
     description='Static status page generator that uses a Trello board as a '
                 'data source',
     long_description=open('README.rst').read(),
-    version='1.0.1',
+    version='1.0.2',
     author='Wes Mason',
     author_email='wesley.mason@canonical.com',
     url='http://canonical-ols.github.io/trestus/',

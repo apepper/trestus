@@ -1,6 +1,11 @@
 ChangeLog for trestus
 =====================
 
+1.0.2 (2016-09-19)
+------------------
+
+ - Add CSS copying from templates by default, with --skip-css flag to disable.
+
 1.0.1 (2016-09-17)
 ------------------
 
