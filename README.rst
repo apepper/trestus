@@ -123,6 +123,16 @@ Example usage
 
 This will generatea ``test.html`` in your current directory, and also copy over ``trestus.css`` (to skip this and use your own CSS, use the ``--skip-css`` option).
 
+If you want to provide your own Jinja2 template for generating the status page, you can use the ``-T``/``--custom-template`` option.
+
+For example we use this feature to translate our Three-Letter-Acronyms for service to more customer friendly long-form names, by pairing with the ``-d``/``-template-data`` option to pass in a YAML dict of aliases:
+
+.. code-block::
+    
+    trestus -k <trello key> -s <trello secret> -t <trello auth token> -S <trello auth token secret> -b <board ID> --T mystatus.html.j2 -d myaliases.yaml --skip-css ./test.html
+
+As mentioned above, we're also using the ``--skip-css`` flag here to skip copying the default template CSS over, and instead use our own to apply a different logo/styling etc.
+
 
 How do I hook it up to Trello?
 ------------------------------
