@@ -142,11 +142,11 @@ How do I hook it up to Trello?
 
 The way I have achieved this is by creating a "secret" URL routed to a VM that runs a script which invokes trestus with the ``flock`` utility to limit invocations in a queue.
 
-I then hooked this address up to a webhook on the right Trello board, using Trello's `webhook API <FILLTHISIN>`_, so now whenver a change happens on the board an invocation of trestus is queued up on the target host.
+I then hooked this address up to a webhook on the right Trello board, using Trello's `webhook API <https://developers.trello.com/apis/webhooks>`_, so now whenver a change happens on FILLTHISINthe board an invocation of trestus is queued up on the target host.
 
 **Nota bene**: be careful about how this webhook handler is exposed, for example I have allowed only GET/POST in this situation as these are the actions Trello expect to be available (for verification, and hook postbacks respectively), but the URL also has a randomly generated portion.
 
 Bugs, issues, improvements, features requests and support
 ---------------------------------------------------------
 
-If you have discovered an issue with trestus, or have an idea for improving it, please feel free to `hit up GitHub issues <https://github.com/canonical-ols/trestus/issues>`_ and I'll work with you to improve things. :heart: :smile:
+If you have discovered an issue with trestus, or have an idea for improving it, please feel free to `hit up GitHub issues <https://github.com/canonical-ols/trestus/issues>`_ and I'll work with you to improve things. ♥ ☺
