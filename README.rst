@@ -119,7 +119,8 @@ Example usage
 
 .. code-block::
     
-    trestus -k <trello key> -s <trello secret> -t <trello auth token> -S <trello auth token secret> -b <board ID> ./test.html
+    trestus -k <trello key> -s <trello secret> -t <trello auth token> \
+    -S <trello auth token secret> -b <board ID> ./test.html
 
 This will generatea ``test.html`` in your current directory, and also copy over ``trestus.css`` (to skip this and use your own CSS, use the ``--skip-css`` option).
 
@@ -129,7 +130,9 @@ For example we use this feature to translate our Three-Letter-Acronyms for servi
 
 .. code-block::
     
-    trestus -k <trello key> -s <trello secret> -t <trello auth token> -S <trello auth token secret> -b <board ID> --T mystatus.html.j2 -d myaliases.yaml --skip-css ./test.html
+    trestus -k <trello key> -s <trello secret> -t <trello auth token> \
+    -S <trello auth token secret> -b <board ID> --T mystatus.html.j2 \
+    -d myaliases.yaml --skip-css ./test.html
 
 As mentioned above, we're also using the ``--skip-css`` flag here to skip copying the default template CSS over, and instead use our own to apply a different logo/styling etc.
 
@@ -137,4 +140,8 @@ As mentioned above, we're also using the ``--skip-css`` flag here to skip copyin
 How do I hook it up to Trello?
 ------------------------------
 
+The way I have achieved this is by creating a "secret" URL routed to a VM that runs a script which invokes trestus with the ``flock`` utility to limit invocations in a queue.
 
+I then hooked this address up to a webhook on the right Trello board, using Trello's `webhook API <FILLTHISIN>`_, so now whenver a change happens on the board an invocation of trestus is queued up on the target host.
+
+**Nota bene**: be careful about how this webhook handler is exposed, for example I have allowed only GET/POST in this situation as these are the actions Trello expect to be available (for verification, and hook postbacks respectively), but the URL also has a randomly generated portion.
