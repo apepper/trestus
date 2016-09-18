@@ -116,6 +116,12 @@ Usage
 Example usage
 *************
 
+.. code-block::
+    
+    trestus -k <trello key> -s <trello secret> -t <trello auth token> -S <trello auth token secret> -b <board ID> ./test.html
+
+This will generatea ``test.html`` in your current directory, and also copy over ``trestus.css`` (to skip this and use your own CSS, use the ``--skip-css`` option).
+
 
 How do I hook it up to Trello?
 ------------------------------
