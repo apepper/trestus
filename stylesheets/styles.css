@@ -312,6 +312,7 @@ a.github {
 
 a.pypi {
     background: none;
+	padding: 2px 2px 2px 2px;
 }
 
 a.buttons:hover {
