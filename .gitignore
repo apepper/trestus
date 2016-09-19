@@ -1,0 +1,7 @@
+parts/
+prime/
+stage/
+style.css
+test.html
+*.snap
+venv/
