@@ -74,7 +74,7 @@ From PyPI with pip:
 
 .. code-block::
     
-    $ venv ./trestus-env
+    $ python3 -m venv ./trestus-env
     $ ./trestus-env/bin/pip install trestus
 
 
