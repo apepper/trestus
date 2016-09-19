@@ -6,7 +6,7 @@ confinement: strict
 
 apps:
   trestus:
-    command: usr/bin/trestus
+    command: bin/trestus
     plugs:
       - home
       - network
@@ -18,9 +18,9 @@ parts:
     source: .
     filesets:
       pylibs:
+        - bin/trestus
         - usr/bin/python3
         - usr/bin/python3.5
-        - usr/bin/trestus
         - usr/lib/python3/
         - usr/lib/python3.5/
     snap:
