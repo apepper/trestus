@@ -1,3 +1,5 @@
+import codecs
+
 from argparse import ArgumentParser
 from datetime import datetime
 from os import environ, path
@@ -122,7 +124,7 @@ def main():
     else:
         template = env.get_template('trestus.html')
 
-    with open(args.output_path, 'w+') as f:
+    with codecs.open(args.output_path, 'w+', 'utf-8') as f:
         f.write(template.render(incidents=incidents, panels=panels,
                                 systems=systems, **template_data))
 
