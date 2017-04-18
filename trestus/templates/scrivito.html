@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="robots" content="index, follow">
+		<title>Scrivito Status</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+		<link rel="stylesheet" href="trestus.css">
+	</head>
+	<body>
+
+		<main class="wrapper">
+
+			<nav class="navigation">
+				<section class="container">
+
+          <a class="navigation-title" href="http://status.scrivito.com/">
+            <img src="https://s3-eu-west-1.amazonaws.com/pingdom-prod-status-page-logos/zo9btmp39yzl.png" id="logo">
+          </a>
+
+					<!-- <a class="navigation-title" href="">
+						<h1 class="title">Scrivito Status</h1>
+					</a> -->
+
+
+
+				</section>
+			</nav>
+
+			<section class="container" id="main">
+				{% if not panels %}
+					<div class="panel operational">
+						All Systems operational.
+					</div>
+				{% else %}
+					{% for severity, systems in panels.items() if systems %}
+					<div class="panel {{ severity }}">
+						{{ severity.capitalize() }} on {% for system in systems %}{{ system }}{% if not loop.last %}, {% endif %}{% endfor %}.
+					</div>
+					{% endfor %}
+				{% endif %}
+
+        <h4>About This Site</h4>
+        <p>
+          We'd like to keep Scrivito up 100% of the time. When that doesn't happen, we write about it here.
+        </p>
+
+				<h4>Systems</h4>
+				<ul class="systems">
+					{% for system, data in systems.items() %}
+					<li>
+					    {{ system }} <span class="status {{ data.status.lower() }} {{ data.severity }}">{{ data.status }}</span>
+					</li>
+					{% endfor %}
+				</ul>
+
+				<h4>Incidents</h4>
+				{% if incidents %}
+					{% for incident in incidents %}
+					<div class="incident">
+						<span class="date">{{ incident.parsed_date.strftime('%Y-%m-%d %H:%M:%S') }} UTC</span>
+
+						{% if incident.closed %}
+							<span class="label operational float-right">resolved</span>
+						{% else %}
+							<span class="label {{ incident.severity }} float-right">{{ incident.severity }}</span>
+						{% endif %}
+						{% for system in incident.systems %}
+							<span class="label system float-right">{{ system }}</span>
+						{% endfor %}
+						<hr/>
+
+						<span class="title">{{ incident.name }}</span>
+						<p>{{ incident.html_desc }}</p>
+						{% for comment in incident.parsed_comments %}
+							<p><em>Update {{ comment.parsed_date.strftime('%Y-%m-%d %H:%M:%S') }} UTC by {{ comment.memberCreator.initials }}</em><br/>
+							{{ comment.html_desc }}
+							</p>
+						{% endfor %}
+					</div>
+					{% endfor %}
+				{% else %}
+					<em>There are currently no known incidents. \o/</em>
+				{% endif %}
+			</section>
+
+
+			<footer class="footer">
+				<section class="container">
+					<hr/>
+				</section>
+			</footer>
+
+		</main>
+
+	</body>
+</html>

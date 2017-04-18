@@ -706,15 +706,9 @@ img {
 }
 
 .navigation {
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    max-width: 100vw;
-    z-index: 99;
-    background: #f4f5f6;
-    border-bottom: .1rem solid #d1d1d1;
-    height: 5.2rem
+    background-color: #449539;
+    color: #FEFFFE;
+    padding-top: 20px;
 }
 
 .navigation .img {
@@ -746,7 +740,7 @@ img {
 
 .label.operational,
 .panel.operational {
-    background-color: #0DE877
+    background-color: #449539;
 }
 
 .label.degraded.performance,
@@ -754,14 +748,19 @@ img {
     background-color: orange
 }
 
+.label.partial.outage,
+.panel.partial.outage {
+    background-color: orange
+}
+
 .label.investigating,
 .panel.investigating {
-    background-color: #1192FC
+    background-color: orange
 }
 
 .label.major.outage,
 .panel.major.outage {
-    background-color: #FF4D4D
+    background-color: #c5463f;
 }
 
 .label.system {
@@ -789,19 +788,23 @@ ul.systems>li:last-child {
 }
 
 .status.operational {
-    color: #0DE877
+    color: #449539;
 }
 
 .status.degraded.performance {
     color: orange
 }
 
+.status.partial.outage {
+    color: orange
+}
+
 .status.investigating {
-    color: #1192FC
+    color: orange
 }
 
 .status.major.outage {
-    color: #FF4D4D
+    color: #c5463f;
 }
 
 hr {
