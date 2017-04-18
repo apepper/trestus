@@ -2,6 +2,7 @@ import codecs
 
 from argparse import ArgumentParser
 from datetime import datetime
+import pytz
 from os import environ, path
 from shutil import copy2
 from sys import exit
@@ -64,6 +65,7 @@ def main():
         cards = card_list.list_cards()
         cards.sort(key=lambda c: c.create_date, reverse=True)
         for card in cards:
+            card.parsed_date = card.create_date.astimezone(pytz.utc)
             severity = None
             for label in card.labels:
                 if not label.name.startswith('status:'):
