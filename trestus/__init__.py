@@ -12,6 +12,7 @@ from jinja2 import Environment, FileSystemLoader
 from trello import TrelloClient
 from mistune import Markdown
 
+from trello import Organization
 
 def main():
     parser = ArgumentParser(description='Generate a status page from a Trello '
@@ -42,6 +43,8 @@ def main():
                              'output dir.')
     parser.add_argument('output_path', help='Path to output rendered HTML to')
     args = parser.parse_args()
+
+    Organization.TIMEZONE='CET'
 
     client = TrelloClient(
         api_key=args.key,
