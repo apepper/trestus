@@ -33,7 +33,13 @@ def s3_upload(source_path):
     s3_object.upload_file(source_path, { 'ContentType': mimetypes.guess_type(source_path)[0] })
 
 def run_trestus():
-    sys.argv += ['--board-id', BOARD_ID, '--key', API_KEY, '--token', TOKEN,'--custom-template', CUSTOM_TEMPLATE, OUTPUT_PATH]
+    sys.argv = [
+      sys.argv[0],
+      '--board-id', BOARD_ID,
+      '--key', API_KEY,
+      '--token', TOKEN,
+      '--custom-template', CUSTOM_TEMPLATE,
+      OUTPUT_PATH]
     trestus.main()
 
 def upload_assets():
