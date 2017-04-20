@@ -29,7 +29,8 @@ OUTPUT_PATH= environ['OUTPUT_PATH']
 
 def s3_upload(source_path):
     s3 = boto3.resource('s3')
-    s3.Object(BUCKET_NAME, path.basename(source_path)).upload_file(source_path,{'ContentType':mimetypes.guess_type(source_path)[0]})
+    s3_object = s3.Object(BUCKET_NAME, path.basename(source_path))
+    s3_object.upload_file(source_path, { 'ContentType': mimetypes.guess_type(source_path)[0] })
 
 def calltrestus_handler(event, context):
     logger.info('Received event: {}'.format(event))
