@@ -7,4 +7,19 @@ stage
 *.tar.bz2
 *.snap
 
-trestus.css
+lambda-packaging/calltrestus.py
+lambda-packaging/dateutil*
+lambda-packaging/jinja2*
+lambda-packaging/markupsafe*
+lambda-packaging/mistune*
+lambda-packaging/oauthlib*
+lambda-packaging/py_trello*
+lambda-packaging/python_dateutil*
+lambda-packaging/pytz*
+lambda-packaging/PyYAML*
+lambda-packaging/requests*
+lambda-packaging/six*
+lambda-packaging/test*
+lambda-packaging/trello*
+lambda-packaging/trestus*
+lambda-packaging/yaml*

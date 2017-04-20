@@ -1,31 +1,11 @@
 # Howto Package for Lambda
 
-Create a folder for the lambda package.
+You need Python 2 installed. On Mac OS X we recommend Homebrew (see [Homebrew](http://brew.sh/)) for this (e.g. `brew install python`).
 
-If using Mac OS X and you have Python installed using Homebrew (see [Homebrew](http://brew.sh/)), add a `setup.cfg` file in your `/path/to/lambda-packaging` with the following content. Alternatively put a `.pydistutils.cfg` with the same contents in your `HOME_DIR`.
-
-```
-[install]
-prefix=
-```
-
-Install modules into package folder
+Once Python is installed call the following shell script, to build the lambda function:
 
 ```
-pip install trestus -t /path/to/lambda-packaging
-```
-
-Copy the adjusted files
-* `trestus/templates/scrivito.html` into the folder `/path/to/lambda-packaging/trestus/templates/`,
-* `trestus/templates/trestus.css` into the folder `/path/to/lambda-packaging/trestus/templates/`,
-* `trestus/__init__.py` into the folder `/path/to/lambda-packaging/trestus/`
-* `robots.txt` into the folder `/path/to/lambda-packaging/` and
-* `calltrestus.py` into the folder `/path/to/lambda-packaging/`.
-
-Change into the package folder and create a zip file containing all contents of the folder
-
-```
-zip -r /tmp/calltrestus.zip *
+./build_lambda_package.sh
 ```
 
 Upload that zip file into the lambda function.
