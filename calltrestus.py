@@ -32,14 +32,20 @@ def s3_upload(source_path):
     s3_object = s3.Object(BUCKET_NAME, path.basename(source_path))
     s3_object.upload_file(source_path, { 'ContentType': mimetypes.guess_type(source_path)[0] })
 
-def calltrestus_handler(event, context):
-    logger.info('Received event: {}'.format(event))
+def run_trestus():
     sys.argv += ['--board-id', BOARD_ID, '--key', API_KEY, '--token', TOKEN,'--custom-template', CUSTOM_TEMPLATE, OUTPUT_PATH]
     trestus.main()
+
+def upload_assets():
     css_path = path.join(path.dirname(OUTPUT_PATH), 'trestus.css')
     for path_to_upload in [OUTPUT_PATH, css_path, './robots.txt']:
         logger.info('Upload file to S3: {}'.format(path_to_upload))
         s3_upload(path_to_upload)
+
+def calltrestus_handler(event, context):
+    logger.info('Received event: {}'.format(event))
+    run_trestus()
+    upload_assets()
 
 if __name__ == "__main__":
     # import pdb; pdb.set_trace()
