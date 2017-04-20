@@ -1,11 +1,15 @@
 # for logging
 import logging
+
 # for decryption and s3 handling
 import boto3
 from os import environ, path
 from base64 import b64decode
+import mimetypes
+
 # for trestus
 import trestus
+import sys
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -24,12 +28,10 @@ CUSTOM_TEMPLATE = environ['CUSTOM_TEMPLATE']
 OUTPUT_PATH= environ['OUTPUT_PATH']
 
 def s3_upload(source_path):
-    import mimetypes
     s3 = boto3.resource('s3')
     s3.Object(BUCKET_NAME, path.basename(source_path)).upload_file(source_path,{'ContentType':mimetypes.guess_type(source_path)[0]})
 
 def calltrestus_handler(event, context):
-    import sys
     logger.info('Received event: {}'.format(event))
     sys.argv += ['--board-id', BOARD_ID, '--key', API_KEY, '--token', TOKEN,'--custom-template', CUSTOM_TEMPLATE, OUTPUT_PATH]
     trestus.main()
